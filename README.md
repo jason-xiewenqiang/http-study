@@ -75,14 +75,14 @@ learn http
 
 ```
     
-    |请求报文
+    | 请求报文
     | ---
     | GET / test/hi-there.txt HTTP/1.0
     | Accept: text/*
     | Accept-Language: en,fr..
     | ..ets
 
-    |响应报文
+    | 响应报文
     | ---
     | HTTP/1.0 200 OK
     | Content-type: text/plain
