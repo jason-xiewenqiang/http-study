@@ -71,4 +71,24 @@ learn http
 + URI Uniform Resource Identifier 统一资源标志符
 + URL Uniform Resource Locator 统一资源定位器
 
+###### HTTP报文
+
+```
+    
+    请求报文|
+    ---|
+    GET / test/hi-there.txt HTTP/1.0|
+    Accept: text/*|
+    Accept-Language: en,fr..|
+    ..ets|
+
+    响应报文|
+    ---|
+    HTTP/1.0 200 OK|
+    Content-type: text/plain|
+    Content-length: 19|
+    Hi! I'm a message.|
+
+```
+
 
