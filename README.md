@@ -87,4 +87,29 @@ learn http
     | Content-length: 19 
     | Hi! I'm a message. 
 
++  http method: get --->   post ---> put ---> delete 有各自的语义
++  http code: 100-199 200-299 300-399 400-499 500-599 掌握常用的code含义
+
+### sample server Http demo 
+
+```
+    |--- src
+        |--- http
+            |--- server
+            |--- html
+```
+
+## Request 
+
++ 使用curl 可以在 git bash 面板看到不同的http的信息报文
+
++ 输入 curl -v www.baidu.com 获取到返回的东西和报文信息
+
+### 跨越的概念
+
++ Access to XMLHttpRequest at 'http://127.0.0.1:8887/' from origin 'http://127.0.0.1:8888' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
++ 设置 'Access-Control-Allow-Origin':  '*' 所有都能访问
+
+
 
