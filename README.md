@@ -73,8 +73,6 @@ learn http
 
 ###### HTTP报文
 
-```
-    
     | 请求报文 |
     | ---:|
     | GET / test/hi-there.txt HTTP/1.0 |
@@ -88,7 +86,5 @@ learn http
     | Content-type: text/plain |
     | Content-length: 19 |
     | Hi! I'm a message. |
-
-```
 
 
