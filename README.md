@@ -110,6 +110,59 @@ learn http
 + Access to XMLHttpRequest at 'http://127.0.0.1:8887/' from origin 'http://127.0.0.1:8888' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 
 + 设置 'Access-Control-Allow-Origin':  '*' 所有都能访问
++ 可以是使用JSONP进行请求 或者设置 Access-Control-Allow-Origin 为指定域才能访问
 
+#### 预请求和验证
++ CORS请求 默认允许的方法 是get post head  , put delete 等需要预验证 （method）
++ CORS请求 允许的Content-Type 为 text/plain  multipart/form-data application/x-www-form-urlencoded 数据类型 其他的必须验证过 （Content-Type）
++ 还有其他的请求头必须预验证
++ 请求是发送出去了，但是浏览器会block掉，因为了CORS的策略
++ 预请求的的method是options，通过它到服务端进行验证，如果验证过了，就会发送我们期望的请求
+ 
+## 缓存 cache-control
+### 可缓存性 cache-control
++ public 指在http返回的经过的路径当中，包括代理服务器，浏览器都可以缓存这份数据
++ private  指只有发起http请求的一方才可以进行缓存
++ no-cache  都不让缓存
+
+#### 到期
++ max-age=<secondes> 到期时间 秒 多少秒之后
++ s-maxage=<secondes> 设置代理服务器的缓存到期时间 在代理服务上优先读取s-maxage的时间作为缓存到期时间
++ max-stale=<secondes> 是发起请求的一方它主动带的请求头，即使是max-age到期，但是有这个参数，那么浏览器也判断不需要重新到服务器拉取新的内容会来 （只有发起方）
+
+#### 重新验证
++ must-revalidate 已经过期了，那么就必须去服务器验证，
++ proxy-revalidate 代理服务器缓存时间到期，那么就必须去服务器验证
+
+#### 其他 
++ no-store 彻底不能缓存请求内容
++ no-transform 不允许进行数据的一些转换，比如压缩等（代理服务器端）
+
+
+###### 设置 cache-control 的值 添加内容的hash码，内容变化，则会打包时候，文件名会变化
+
+## 资源验证
+
+
+```
+        ----> Browser
+        ^        |    
+        |        |
+        |        |
+    如果命中  创建请求
+        |        |
+        |        |  
+        <---- local cache ----未命中------> 代理服务器 -----未命中--------> 源服务器
+                |                            |
+                |                            |
+                ----<---- 命中 ----<----------                     
+
+```
+
++ 验证头 Last-Modified  ETag
++ Last-Modified 上次修改时间 配合使用的是 If-Modified-Since or If-Unmodified-Since
++ 对比 If-Modified-Since 以验证资源是否需要更新
++ ETag 数据签名 严格验证 常见的是对资源内容进行hash计算  配合使用的是If-Match or If-Non-Match
++ 对比资源的签名是否使用缓存
 
 
