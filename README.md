@@ -126,9 +126,9 @@ learn http
 + no-cache  都不让缓存
 
 #### 到期
-+ max-age=<secondes> 到期时间 秒 多少秒之后
-+ s-maxage=<secondes> 设置代理服务器的缓存到期时间 在代理服务上优先读取s-maxage的时间作为缓存到期时间
-+ max-stale=<secondes> 是发起请求的一方它主动带的请求头，即使是max-age到期，但是有这个参数，那么浏览器也判断不需要重新到服务器拉取新的内容会来 （只有发起方）
++ max-age=<'secondes'> 到期时间 秒 多少秒之后
++ s-maxage=<'secondes'> 设置代理服务器的缓存到期时间 在代理服务上优先读取s-maxage的时间作为缓存到期时间
++ max-stale=<'secondes'> 是发起请求的一方它主动带的请求头，即使是max-age到期，但是有这个参数，那么浏览器也判断不需要重新到服务器拉取新的内容会来 （只有发起方）
 
 #### 重新验证
 + must-revalidate 已经过期了，那么就必须去服务器验证，
@@ -165,4 +165,14 @@ learn http
 + ETag 数据签名 严格验证 常见的是对资源内容进行hash计算  配合使用的是If-Match or If-Non-Match
 + 对比资源的签名是否使用缓存
 
+## Cookie
++ 服务端通过Set-Cookie设置给响应携带的内容 浏览器在下次请求都会自定带上
++ 属性 max-age和expires设置过期时间 Secure(只有在https的时候发送) HttpOnly（无法通过document.cookie访问）
++ 设置下过期时间 'Set-Cookie': ['id=123; max-age=2', 'abc=234'] // 是可以设置过期时间的
++ 设置下过期时间 expires 表示到什么时间点过期（要计算下）
++ 设置下 'Set-Cookie': ['id=123; max-age=2', 'abc=234;HttpOnly']
++ domain 设置---- 访问域的权限设定 同一个域名也有限制 不能跨域的设置cookie （认知）
++ 最常用的session实现方式就是cookie携带用户的id作为用户信息验证（id加密）
 
+### 长连接
++ 一次请求过后，服务端不关闭当前的连接，下次再发送http request就不会再次进行三次握手，减少并发请求的时间  复用连接，但是是按顺序请求 一般是6个并发
